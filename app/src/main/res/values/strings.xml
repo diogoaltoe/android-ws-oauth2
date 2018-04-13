@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Droid WS</string>
+
+    <string name="app_menu">MENU</string>
+
+    <string name="app_network_offline">Por favor, verifique sua conexão com a Internet</string>
+
+    <string name="title_activity_new">Novo</string>
+    <string name="button_list">Lista</string>
+    <string name="text_first_name">Nome</string>
+    <string name="text_last_name">Sobrenome</string>
+    <string name="button_save">Salvar</string>
+
+    <string name="title_activity_list">Lista</string>
+    <string name="text_success_title">Sucesso</string>
+    <string name="text_save_message">Registro cadastrado com sucesso!</string>
+    <string name="text_edit_message">Registro editado com sucesso!</string>
+    <string name="text_delete_message">Registro excluído com sucesso!</string>
+
+    <string name="text_attention_title">Atenção</string>
+    <string name="text_delete_confirmation">Tem certeza que deseja excluir esse registro?</string>
+
+    <string name="title_activity_edit">Editar</string>
+    <string name="button_delete">Excluir</string>
+
+
+</resources>
