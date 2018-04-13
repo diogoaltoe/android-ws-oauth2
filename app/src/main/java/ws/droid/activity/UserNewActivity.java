@@ -28,7 +28,7 @@ import ws.droid.controller.NetworkController;
 public class UserNewActivity extends AppCompatActivity {
 
     // we"ll make HTTP request to this URL to retrieve weather conditions
-    String urlWebService = "http://10.0.2.2:8080/people/";
+    String hrefWebService = "http://10.0.2.2:8080/people/";
     // Textview to show temperature and description
     TextView textViewFirstName;
     TextView textViewLastName;
@@ -61,7 +61,7 @@ public class UserNewActivity extends AppCompatActivity {
 
             JSONObject parameters = new JSONObject(params);
 
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, urlWebService, parameters, new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, hrefWebService, parameters, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     //TODO: handle success
