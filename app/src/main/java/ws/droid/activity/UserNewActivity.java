@@ -61,19 +61,23 @@ public class UserNewActivity extends AppCompatActivity {
 
             JSONObject parameters = new JSONObject(params);
 
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, hrefWebService, parameters, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    //TODO: handle success
-                    Log.d("Response", response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                    //TODO: handle failure
-                }
-            });
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    hrefWebService,
+                    parameters,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //TODO: handle success
+                            Log.d("Response", response.toString());
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            //TODO: handle failure
+                        }
+                    });
 
             AppController.getInstance(this).addToRequestQueue(jsonRequest);
 

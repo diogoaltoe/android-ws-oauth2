@@ -94,72 +94,76 @@ public class UserListActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.app_network_offline, Toast.LENGTH_LONG).show();
         } else {
 
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, hrefWebService, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    //TODO: handle success
-                    Log.d("Response", response.toString());
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    hrefWebService,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //TODO: handle success
+                            Log.d("Response", response.toString());
 
-                    try {
-                        // Getting JSON Array node
-                        JSONObject jsonEmbedded = response.getJSONObject("_embedded");
-                        JSONArray jsonUsers = jsonEmbedded.getJSONArray("people");
+                            try {
+                                // Getting JSON Array node
+                                JSONObject jsonEmbedded = response.getJSONObject("_embedded");
+                                JSONArray jsonUsers = jsonEmbedded.getJSONArray("people");
 
-                        // looping through All Users
-                        for (int i = 0; i < jsonUsers.length(); i++) {
-                            JSONObject jsonUser = jsonUsers.getJSONObject(i);
+                                // looping through All Users
+                                for (int i = 0; i < jsonUsers.length(); i++) {
+                                    JSONObject jsonUser = jsonUsers.getJSONObject(i);
 
-                            String firstName = jsonUser.getString("firstName");
-                            String lastName = jsonUser.getString("lastName");
+                                    String firstName = jsonUser.getString("firstName");
+                                    String lastName = jsonUser.getString("lastName");
 
-                            JSONObject objLink = jsonUser.getJSONObject("_links");
-                            JSONObject objHref = objLink.getJSONObject("self");
+                                    JSONObject objLink = jsonUser.getJSONObject("_links");
+                                    JSONObject objHref = objLink.getJSONObject("self");
 
-                            String href = objHref.getString("href");
+                                    String href = objHref.getString("href");
 
-                            // tmp hash map for single user
-                            HashMap<String, String> user = new HashMap<>();
+                                    // tmp hash map for single user
+                                    HashMap<String, String> user = new HashMap<>();
 
-                            // adding each child node to HashMap key => value
-                            user.put("firstName", firstName);
-                            user.put("lastName", lastName);
-                            user.put("href", href);
+                                    // adding each child node to HashMap key => value
+                                    user.put("firstName", firstName);
+                                    user.put("lastName", lastName);
+                                    user.put("href", href);
 
-                            // adding user to users list
-                            arrayListUsers.add(user);
+                                    // adding user to users list
+                                    arrayListUsers.add(user);
 
-                            /**
-                             * Updating parsed JSON data into ListView
-                             * */
-                            ListAdapter adapter = new SimpleAdapter(
-                                    UserListActivity.this,
-                                    arrayListUsers,
-                                    R.layout.user_list_item,
-                                    new String[]{"firstName", "lastName", "href"},
-                                    new int[]{R.id.textViewFirstName, R.id.textViewLastName, R.id.textViewHref});
+                                    /**
+                                     * Updating parsed JSON data into ListView
+                                     * */
+                                    ListAdapter adapter = new SimpleAdapter(
+                                            UserListActivity.this,
+                                            arrayListUsers,
+                                            R.layout.user_list_item,
+                                            new String[]{"firstName", "lastName", "href"},
+                                            new int[]{R.id.textViewFirstName, R.id.textViewLastName, R.id.textViewHref});
 
-                            listViewUserList.setAdapter(adapter);
-                        }
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),
-                                        "Json parsing error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG)
-                                        .show();
+                                    listViewUserList.setAdapter(adapter);
+                                }
+                            } catch (final JSONException e) {
+                                Log.e(TAG, "Json parsing error: " + e.getMessage());
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Json parsing error: " + e.getMessage(),
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                    }
+                                });
                             }
-                        });
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                    //TODO: handle failure
-                }
-            });
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            //TODO: handle failure
+                        }
+                    });
 
             AppController.getInstance(UserListActivity.this).addToRequestQueue(jsonRequest);
         }

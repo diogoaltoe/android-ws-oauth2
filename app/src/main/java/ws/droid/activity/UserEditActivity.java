@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +26,7 @@ import java.util.Map;
 import ws.droid.controller.AppController;
 import ws.droid.controller.NetworkController;
 import ws.droid.R;
+
 
 public class UserEditActivity extends AppCompatActivity {
 
@@ -70,25 +72,30 @@ public class UserEditActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.app_network_offline, Toast.LENGTH_LONG).show();
         } else {
             Map<String, String> params = new HashMap();
+            //params.put("Content-Type", "application/json");
             params.put("firstName", editTextFirstName.getText().toString());
             params.put("lastName", editTextLastName.getText().toString());
 
             JSONObject parameters = new JSONObject(params);
 
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, paramHref, parameters, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    //TODO: handle success
-                    Log.d("Response", response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                    //TODO: handle failure
-                    //Log.d("Error.Response", error.printStackTrace());
-                }
-            });
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(
+                    Request.Method.PUT,
+                    paramHref,
+                    parameters,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //TODO: handle success
+                            Log.d("Response", response.toString());
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            //TODO: handle failure
+                            //Log.d("Error.Response", error.printStackTrace());
+                        }
+                    });
 
             AppController.getInstance(this).addToRequestQueue(jsonRequest);
 
