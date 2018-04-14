@@ -1,6 +1,6 @@
 # Droid WS
 
-Consuming a RESTful Web Service with Android
+Consuming a RESTful Web Service with Android.
 
 ## Getting Started
 
@@ -8,12 +8,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
 
 ```
 Android Studio or other.
+```
+```
 RESTful Web Service (coming soon).
-
 ```
 
 ### Installing
@@ -35,7 +35,7 @@ Click the Run (Shift + F10) button to run the project.
 
 ## Deployment
 
-Another project (soon to be made available) will be the server that will publish the services that are consumed in this project.
+Another project (coming soon) will be the server that will publish the services that are consumed in this project.
 
 ## Built With
 
@@ -43,7 +43,7 @@ Another project (soon to be made available) will be the server that will publish
 
 ## Versioning
 
-We use [Git](https://git-scm.com/) for versioning. For the versions available, see the [tags on this repository](https://github.com/diogoaltoe/droid-ws/tags). 
+We use [Git](https://git-scm.com/) for versioning.
 
 ## Author
 
@@ -51,4 +51,4 @@ We use [Git](https://git-scm.com/) for versioning. For the versions available, s
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License.
