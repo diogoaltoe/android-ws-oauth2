@@ -69,7 +69,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
-        android:onClick="buttonProductMain"
+        android:onClick="buttonPersonMain"
         android:text="@string/button_activity_person"
         android:textSize="18sp"
         android:textStyle="bold"
