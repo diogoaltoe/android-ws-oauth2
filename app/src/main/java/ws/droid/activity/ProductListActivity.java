@@ -1,10 +1,6 @@
 package ws.droid.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,36 +29,35 @@ import ws.droid.controller.AppController;
 import ws.droid.controller.LoadingController;
 import ws.droid.controller.NetworkController;
 
-public class UserListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity {
 
-    private String TAG = UserListActivity.class.getSimpleName();
+    private String TAG = ProductListActivity.class.getSimpleName();
 
-    private ListView listViewUserList;
+    private ListView listViewProductList;
 
     // URL to get contacts JSON
-    private static String hrefWebService = "http://10.0.2.2:8080/user/";
+    private static String hrefWebService = "http://10.0.2.2:8080/product/";
 
-    private ArrayList<HashMap<String, String>> arrayListUsers;
-
+    private ArrayList<HashMap<String, String>> arrayListProduct;
+    // Progress Bar
     private LoadingController loading;
     private View viewLoading;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list);
+        setContentView(R.layout.activity_product_list);
 
-        arrayListUsers = new ArrayList<>();
+        arrayListProduct = new ArrayList<>();
 
-        listViewUserList = (ListView) findViewById(R.id.listViewUserList);
+        listViewProductList = (ListView) findViewById(R.id.listViewProductList);
         viewLoading = findViewById(R.id.progressBarLoading);
 
-        listViewUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Object itemList = listViewUserList.getItemAtPosition(position);
+            Object itemList = listViewProductList.getItemAtPosition(position);
 
             // Convert Object to Json (String)
             Gson gson = new Gson();
@@ -72,22 +67,25 @@ public class UserListActivity extends AppCompatActivity {
                 // Convert JsonString to JsonObject
                 JSONObject jsonObjItem = new JSONObject(jsonStrItem);
 
-                // Set first name
-                String jsonFirstName = jsonObjItem.getString("name");
-                // Set last name
-                String jsonLastName = jsonObjItem.getString("email");
+                // Set name
+                String jsonName = jsonObjItem.getString("name");
+                // Set description
+                String jsonDescription = jsonObjItem.getString("description");
+                // Set cost
+                String jsonCost = jsonObjItem.getString("cost");
                 // Set link url of item
                 String jsonHref = jsonObjItem.getString("href");
 
                 // Redirect to the edit screen
                 // Passing the item's url as param
-                Intent intent = new Intent(UserListActivity.this, UserEditActivity.class);
-                intent.putExtra("name", jsonFirstName);
-                intent.putExtra("email", jsonLastName);
+                Intent intent = new Intent(ProductListActivity.this, ProductEditActivity.class);
+                intent.putExtra("name", jsonName);
+                intent.putExtra("description", jsonDescription);
+                intent.putExtra("cost", jsonCost);
                 intent.putExtra("href", jsonHref);
                 startActivity(intent);
 
-                //Toast.makeText(PersonListActivity.this,"You selected : " + jsonUrl,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ProductListActivity.this,"You selected : " + jsonUrl,Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -102,10 +100,9 @@ public class UserListActivity extends AppCompatActivity {
             // Show a message to the user to check his Internet
             Toast.makeText(this, R.string.app_network_offline, Toast.LENGTH_LONG).show();
         } else {
-
             loading = new LoadingController();
             // Show a progress spinner
-            loading.showProgress(UserListActivity.this, viewLoading, true);
+            loading.showProgress(ProductListActivity.this, viewLoading, true);
 
             JsonObjectRequest jsonRequest = new JsonObjectRequest(
                     Request.Method.GET,
@@ -120,45 +117,47 @@ public class UserListActivity extends AppCompatActivity {
                             try {
                                 // Getting JSON Array node
                                 JSONObject jsonEmbedded = response.getJSONObject("_embedded");
-                                JSONArray jsonUsers = jsonEmbedded.getJSONArray("user");
+                                JSONArray jsonProducts = jsonEmbedded.getJSONArray("product");
 
                                 // looping through All Users
-                                for (int i = 0; i < jsonUsers.length(); i++) {
-                                    JSONObject jsonUser = jsonUsers.getJSONObject(i);
+                                for (int i = 0; i < jsonProducts.length(); i++) {
+                                    JSONObject jsonProduct = jsonProducts.getJSONObject(i);
 
-                                    String name = jsonUser.getString("name");
-                                    String email = jsonUser.getString("email");
+                                    String name = jsonProduct.getString("name");
+                                    String description = jsonProduct.getString("description");
+                                    String cost = jsonProduct.getString("cost");
 
-                                    JSONObject objLink = jsonUser.getJSONObject("_links");
+                                    JSONObject objLink = jsonProduct.getJSONObject("_links");
                                     JSONObject objHref = objLink.getJSONObject("self");
 
                                     String href = objHref.getString("href");
 
-                                    // tmp hash map for single user
-                                    HashMap<String, String> user = new HashMap<>();
+                                    // tmp hash map for single product
+                                    HashMap<String, String> product = new HashMap<>();
 
                                     // adding each child node to HashMap key => value
-                                    user.put("name", name);
-                                    user.put("email", email);
-                                    user.put("href", href);
+                                    product.put("name", name);
+                                    product.put("description", description);
+                                    product.put("cost", cost);
+                                    product.put("href", href);
 
-                                    // adding user to users list
-                                    arrayListUsers.add(user);
+                                    // adding product to users list
+                                    arrayListProduct.add(product);
 
                                     /**
                                      * Updating parsed JSON data into ListView
                                      * */
                                     ListAdapter adapter = new SimpleAdapter(
-                                            UserListActivity.this,
-                                            arrayListUsers,
-                                            R.layout.user_list_item,
-                                            new String[]{"name", "email", "href"},
-                                            new int[]{R.id.textViewName, R.id.textViewEmail, R.id.textViewHref});
+                                            ProductListActivity.this,
+                                            arrayListProduct,
+                                            R.layout.product_list_item,
+                                            new String[]{"name", "description", "cost", "href"},
+                                            new int[]{R.id.textViewName, R.id.textViewDescription, R.id.textViewCost, R.id.textViewHref});
 
-                                    listViewUserList.setAdapter(adapter);
+                                    listViewProductList.setAdapter(adapter);
 
                                     // Hidden a progress spinner
-                                    loading.showProgress(UserListActivity.this, viewLoading, false);
+                                    loading.showProgress(ProductListActivity.this, viewLoading, false);
                                 }
                             } catch (final JSONException e) {
                                 Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -166,7 +165,7 @@ public class UserListActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // Hidden a progress spinner
-                                        loading.showProgress(UserListActivity.this, viewLoading, false);
+                                        loading.showProgress(ProductListActivity.this, viewLoading, false);
 
                                         Toast.makeText(getApplicationContext(),
                                                 "Json parsing error: " + e.getMessage(),
@@ -180,15 +179,13 @@ public class UserListActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             error.printStackTrace();
-
                             //TODO: handle failure
                             // Hidden a progress spinner
-                            loading.showProgress(UserListActivity.this, viewLoading, false);
+                            loading.showProgress(ProductListActivity.this, viewLoading, false);
                         }
                     });
 
-            AppController.getInstance(UserListActivity.this).addToRequestQueue(jsonRequest);
+            AppController.getInstance(ProductListActivity.this).addToRequestQueue(jsonRequest);
         }
     }
-
 }

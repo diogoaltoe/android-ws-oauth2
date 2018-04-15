@@ -1,26 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+        App Name
+    -->
     <string name="app_name">Droid WS</string>
 
-    <string name="app_menu">MENU</string>
-    <string name="app_network_offline">Por favor, verifique sua conexão com a Internet</string>
-
-    <string name="title_activity_new">Novo</string>
+    <!--
+        Default Buttons
+    -->
+    <string name="button_new">Novo</string>
     <string name="button_list">Lista</string>
-    <string name="text_first_name">Nome</string>
-    <string name="text_last_name">Sobrenome</string>
+    <string name="button_edit">Editar</string>
+    <string name="button_delete">Excluir</string>
     <string name="button_save">Salvar</string>
 
-    <string name="title_activity_list">Lista</string>
+    <!--
+        Default Success Message
+    -->
     <string name="text_success_title">Sucesso</string>
     <string name="text_save_message">Registro cadastrado com sucesso!</string>
     <string name="text_edit_message">Registro editado com sucesso!</string>
     <string name="text_delete_message">Registro excluído com sucesso!</string>
 
+    <!--
+        Default Delete Message
+    -->
     <string name="text_attention_title">Atenção</string>
     <string name="text_delete_confirmation">Tem certeza que deseja excluir esse registro?</string>
 
-    <string name="title_activity_edit">Editar</string>
-    <string name="button_delete">Excluir</string>
+    <!--
+        Default Network Message
+    -->
+    <string name="app_network_offline">Por favor, verifique sua conexão com a Internet</string>
+
+    <!--
+        Main
+    -->
+    <string name="text_home">Olá! Crie a sua conta ou acesse nosso sistema.</string>
+    <string name="button_user_new">Criar Conta</string>
+    <string name="button_login">Entrar</string>
+
+    <!--
+        User New
+    -->
+    <string name="title_activity_user_new">Criar Usuário</string>
+    <string name="text_user_name">Nome</string>
+    <string name="text_user_email">E-mail</string>
+    <string name="text_user_password">Senha</string>
+    <string name="text_user_password_repeat">Repita sua senha</string>
+
+    <!--
+        User Login
+    -->
+    <string name="title_activity_user_login">Login</string>
+    <string name="error_invalid_email">O e-mail é inválido</string>
+    <string name="error_invalid_password">A senha é muito curta</string>
+    <string name="error_incorrect_password">A senha é incorreta</string>
+    <string name="error_field_required">O campo é obrigatório</string>
+    <string name="permission_rationale">"Você receberá um e-mail para confirmar seu cadastro."</string>
+
+    <!--
+        User Home
+    -->
+    <string name="title_activity_user_home">Início</string>
+    <string name="text_user_welcome">Bem vindo!</string>
+    <string name="button_activity_user">Usuário</string>
+    <string name="button_activity_product">Produto</string>
+    <string name="button_activity_person">Pessoa</string>
+    <string name="button_activity_logoff">Sair</string>
+
+    <!--
+        User Main
+    -->
+    <string name="title_activity_user">Usuário</string>
+
+    <!--
+        User List
+    -->
+    <string name="title_activity_user_list">Listar Usuários</string>
+
+    <!--
+        User Edit
+    -->
+    <string name="title_activity_user_edit">Editar Usuário</string>
+
+
+    <!--
+        Product Main
+    -->
+    <string name="title_activity_product">Produto</string>
+
+    <!--
+        Product New
+    -->
+    <string name="title_activity_product_new">Adicionar Produto</string>
+    <string name="text_product_name">Nome</string>
+    <string name="text_product_description">Descrição</string>
+    <string name="text_product_cost">Custo</string>
+
+    <!--
+        Product List
+    -->
+    <string name="title_activity_product_list">Listar Produtos</string>
+
+    <!--
+        Product Edit
+    -->
+    <string name="title_activity_product_edit">Editar Produto</string>
+
+
+    <!--
+        Person Main
+    -->
+    <string name="title_activity_person">Pessoa</string>
+
+    <!--
+        Person New
+    -->
+    <string name="title_activity_person_new">Adicionar Pessoa</string>
+    <string name="text_first_name">Nome</string>
+    <string name="text_last_name">Sobrenome</string>
+
+    <!--
+        Person List
+    -->
+    <string name="title_activity_person_list">Listar Pessoas</string>
+
+    <!--
+        Person Edit
+    -->
+    <string name="title_activity_person_edit">Editar Pessoa</string>
 
 </resources>

@@ -28,15 +28,17 @@ import ws.droid.controller.LoadingController;
 import ws.droid.controller.NetworkController;
 
 
-public class UserEditActivity extends AppCompatActivity {
+public class ProductEditActivity extends AppCompatActivity {
 
     private EditText editTextName;
-    private EditText editTextEmail;
+    private EditText editTextDescription;
+    private EditText editTextCost;
 
     // URL to get contacts JSON
     private static String paramHref;
     private String paramName;
-    private String paramEmail;
+    private String paramDescription;
+    private String paramCost;
     // Progress Bar
     private LoadingController loading;
     private View viewLoading;
@@ -44,22 +46,25 @@ public class UserEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_edit);
+        setContentView(R.layout.activity_product_edit);
 
         editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextDescription = (EditText) findViewById(R.id.editTextDescription);
+        editTextCost = (EditText) findViewById(R.id.editTextCost);
         viewLoading = findViewById(R.id.progressBarLoading);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             paramName = extras.getString("name");
-            paramEmail = extras.getString("email");
+            paramDescription = extras.getString("description");
+            paramCost = extras.getString("cost");
             paramHref = extras.getString("href");
 
             // Update the fields on screen
             editTextName.setText(paramName, TextView.BufferType.EDITABLE);
-            editTextEmail.setText(paramEmail, TextView.BufferType.EDITABLE);
+            editTextDescription.setText(paramDescription, TextView.BufferType.EDITABLE);
+            editTextCost.setText(paramCost, TextView.BufferType.EDITABLE);
         }
     }
 
@@ -77,12 +82,13 @@ public class UserEditActivity extends AppCompatActivity {
         } else {
             loading = new LoadingController();
             // Show a progress spinner
-            loading.showProgress(UserEditActivity.this, viewLoading, true);
+            loading.showProgress(ProductEditActivity.this, viewLoading, true);
 
             Map<String, String> params = new HashMap();
             //params.put("Content-Type", "application/json");
             params.put("name", editTextName.getText().toString());
-            params.put("email", editTextEmail.getText().toString());
+            params.put("description", editTextDescription.getText().toString());
+            params.put("cost", editTextCost.getText().toString());
 
             JSONObject parameters = new JSONObject(params);
 
@@ -108,14 +114,14 @@ public class UserEditActivity extends AppCompatActivity {
             AppController.getInstance(this).addToRequestQueue(jsonRequest);
 
             // Hidden a progress spinner
-            loading.showProgress(UserEditActivity.this, viewLoading, false);
+            loading.showProgress(ProductEditActivity.this, viewLoading, false);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UserEditActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProductEditActivity.this);
             builder.setMessage(R.string.text_edit_message)
                     .setTitle(R.string.text_success_title)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            startActivity(new Intent(((Dialog)dialog).getContext(), UserListActivity.class));
+                            startActivity(new Intent(((Dialog)dialog).getContext(), ProductListActivity.class));
                         }
                     });
             AlertDialog dialog = builder.create();
@@ -128,7 +134,7 @@ public class UserEditActivity extends AppCompatActivity {
      * */
     public void buttonDelete(View view) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(UserEditActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProductEditActivity.this);
         builder.setMessage(R.string.text_delete_confirmation)
                 .setTitle(R.string.text_attention_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -160,7 +166,7 @@ public class UserEditActivity extends AppCompatActivity {
         } else {
             loading = new LoadingController();
             // Show a progress spinner
-            loading.showProgress(UserEditActivity.this, viewLoading, true);
+            loading.showProgress(ProductEditActivity.this, viewLoading, true);
 
             JsonObjectRequest jsonRequest = new JsonObjectRequest(
                     Request.Method.DELETE,
@@ -184,14 +190,14 @@ public class UserEditActivity extends AppCompatActivity {
             AppController.getInstance(this).addToRequestQueue(jsonRequest);
 
             // Hidden a progress spinner
-            loading.showProgress(UserEditActivity.this, viewLoading, false);
+            loading.showProgress(ProductEditActivity.this, viewLoading, false);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UserEditActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProductEditActivity.this);
             builder.setMessage(R.string.text_delete_message)
                     .setTitle(R.string.text_success_title)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            startActivity(new Intent(((Dialog) dialog).getContext(), UserListActivity.class));
+                            startActivity(new Intent(((Dialog) dialog).getContext(), ProductListActivity.class));
                         }
                     });
             AlertDialog dialog = builder.create();
