@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "ws.droid"
+        applicationId "com.diogoaltoe"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -36,4 +36,29 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.0'
 
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+
+    // Apache Oltu - https://oltu.apache.org/
+    compile ('org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.2') {
+        /*
+         * NOTE: Swagger generated client library depends on "org.apache.oltu.oauth2.client", which
+         * includes classes from "org.apache.oltu.oauth2.common". So, we explicitly need to exclude
+         * common library being added during compilation to avoid "Multiple dex files" error.
+         */
+        exclude module: 'org.apache.oltu.oauth2.common'
+    }
+
+    compile (
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.4'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.4']
+    )
+
+    compile 'commons-codec:commons-codec:1.8'
+}
+
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
 }

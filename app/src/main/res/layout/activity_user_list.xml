@@ -4,7 +4,7 @@
     android:id="@+id/userListActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ws.droid.activity.UserListActivity">
+    tools:context="com.diogoaltoe.activity.UserListActivity">
 
     <ListView
         android:id="@+id/listViewUserList"

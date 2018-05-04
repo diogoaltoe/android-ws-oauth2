@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ws.droid.activity.UserHomeActivity">
+    tools:context="com.diogoaltoe.activity.UserHomeActivity">
 
     <TextView
         android:id="@+id/textViewUser"

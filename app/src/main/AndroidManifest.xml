@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ws.droid">
+    package="com.diogoaltoe">
 
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <!-- Request Internet connection -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Request to check Internet connection state -->
@@ -12,17 +13,15 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="ws.droid.controller.SessionController"
+        android:name=".controller.Oauth2Controller"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-            Main Activity
-        -->
-        <activity android:name="ws.droid.activity.MainActivity">
+        <!--             Main Activity -->
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,193 +29,165 @@
             </intent-filter>
         </activity>
 
-        <!--
-            User New Activity
-        -->
+        <!--             User New Activity -->
         <activity
-            android:name="ws.droid.activity.UserNewActivity"
+            android:name=".activity.UserNewActivity"
             android:label="@string/title_activity_user_new"
-            android:parentActivityName="ws.droid.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.MainActivity" />
+                android:value="com.diogoaltoe.activity.MainActivity" />
         </activity>
 
-        <!--
-            User Login Activity
-        -->
+        <!--             User Login Activity -->
         <activity
-            android:name="ws.droid.activity.UserLoginActivity"
+            android:name=".activity.UserLoginActivity"
             android:label="@string/title_activity_user_login"
-            android:parentActivityName="ws.droid.activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.MainActivity" />
+                android:value="com.diogoaltoe.activity.MainActivity" />
         </activity>
 
-        <!--
-            User Home Activity
-        -->
+        <!--             User Home Activity -->
         <activity
-            android:name="ws.droid.activity.UserHomeActivity"
-            android:label="@string/title_activity_user_home">
-        </activity>
+            android:name=".activity.UserHomeActivity"
+            android:label="@string/title_activity_user_home"></activity>
 
-        <!--
-            User Main Activity
-        -->
+        <!--             User Main Activity -->
         <activity
-            android:name="ws.droid.activity.UserMainActivity"
+            android:name=".activity.UserMainActivity"
             android:label="@string/title_activity_user"
-            android:parentActivityName="ws.droid.activity.UserHomeActivity">
+            android:parentActivityName=".activity.UserHomeActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.UserHomeActivity" />
+                android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--
-            User List Activity
-        -->
+        <!--             User List Activity -->
         <activity
-            android:name="ws.droid.activity.UserListActivity"
+            android:name=".activity.UserListActivity"
             android:label="@string/title_activity_user_list"
-            android:parentActivityName="ws.droid.activity.UserMainActivity">
+            android:parentActivityName=".activity.UserMainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.UserMainActivity" />
+                android:value="com.diogoaltoe.activity.UserMainActivity" />
         </activity>
 
-        <!--
-            User Edit Activity
-        -->
-        <activity android:name="ws.droid.activity.UserEditActivity"
+        <!--             User Edit Activity -->
+        <activity
+            android:name=".activity.UserEditActivity"
             android:label="@string/title_activity_user_edit"
-            android:parentActivityName="ws.droid.activity.UserListActivity">
+            android:parentActivityName=".activity.UserListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.UserListActivity" />
+                android:value="com.diogoaltoe.activity.UserListActivity" />
         </activity>
 
-
-        <!--
-            Product Main Activity
-        -->
+        <!--             Product Main Activity -->
         <activity
-            android:name="ws.droid.activity.ProductMainActivity"
+            android:name=".activity.ProductMainActivity"
             android:label="@string/title_activity_product"
-            android:parentActivityName="ws.droid.activity.UserHomeActivity">
+            android:parentActivityName=".activity.UserHomeActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.UserHomeActivity" />
+                android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--
-            Product New Activity
-        -->
+        <!--             Product New Activity -->
         <activity
-            android:name="ws.droid.activity.ProductNewActivity"
+            android:name=".activity.ProductNewActivity"
             android:label="@string/title_activity_product_new"
-            android:parentActivityName="ws.droid.activity.ProductMainActivity">
+            android:parentActivityName=".activity.ProductMainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.ProductMainActivity" />
+                android:value="com.diogoaltoe.activity.ProductMainActivity" />
         </activity>
 
-        <!--
-            Product List Activity
-        -->
+        <!--             Product List Activity -->
         <activity
-            android:name="ws.droid.activity.ProductListActivity"
+            android:name=".activity.ProductListActivity"
             android:label="@string/title_activity_product_list"
-            android:parentActivityName="ws.droid.activity.ProductMainActivity">
+            android:parentActivityName=".activity.ProductMainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.ProductMainActivity" />
+                android:value="com.diogoaltoe.activity.ProductMainActivity" />
         </activity>
 
-        <!--
-            Product Edit Activity
-        -->
-        <activity android:name="ws.droid.activity.ProductEditActivity"
+        <!--             Product Edit Activity -->
+        <activity
+            android:name=".activity.ProductEditActivity"
             android:label="@string/title_activity_product_edit"
-            android:parentActivityName="ws.droid.activity.ProductListActivity">
+            android:parentActivityName=".activity.ProductListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.ProductListActivity" />
+                android:value="com.diogoaltoe.activity.ProductListActivity" />
         </activity>
 
-
-        <!--
-            Person Main Activity
-        -->
+        <!--             Person Main Activity -->
         <activity
-            android:name="ws.droid.activity.PersonMainActivity"
+            android:name=".activity.PersonMainActivity"
             android:label="@string/title_activity_person"
-            android:parentActivityName="ws.droid.activity.UserHomeActivity">
+            android:parentActivityName=".activity.UserHomeActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.UserHomeActivity" />
+                android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--
-            Person New Activity
-        -->
+        <!--             Person New Activity -->
         <activity
-            android:name="ws.droid.activity.PersonNewActivity"
+            android:name=".activity.PersonNewActivity"
             android:label="@string/title_activity_person_new"
-            android:parentActivityName="ws.droid.activity.PersonMainActivity">
+            android:parentActivityName=".activity.PersonMainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.PersonMainActivity" />
+                android:value="com.diogoaltoe.activity.PersonMainActivity" />
         </activity>
 
-        <!--
-            Person List Activity
-        -->
+        <!--             Person List Activity -->
         <activity
-            android:name="ws.droid.activity.PersonListActivity"
+            android:name=".activity.PersonListActivity"
             android:label="@string/title_activity_person_list"
-            android:parentActivityName="ws.droid.activity.PersonMainActivity">
+            android:parentActivityName=".activity.PersonMainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.PersonMainActivity" />
+                android:value="com.diogoaltoe.activity.PersonMainActivity" />
         </activity>
 
-        <!--
-            Person Edit Activity
-        -->
-        <activity android:name="ws.droid.activity.PersonEditActivity"
+        <!--             Person Edit Activity -->
+        <activity
+            android:name=".activity.PersonEditActivity"
             android:label="@string/title_activity_person_edit"
-            android:parentActivityName="ws.droid.activity.PersonListActivity">
+            android:parentActivityName=".activity.PersonListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ws.droid.activity.PersonListActivity" />
+                android:value="com.diogoaltoe.activity.PersonListActivity" />
         </activity>
     </application>
 

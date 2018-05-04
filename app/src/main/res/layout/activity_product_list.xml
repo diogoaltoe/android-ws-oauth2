@@ -4,7 +4,7 @@
     android:id="@+id/productListActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ws.droid.activity.ProductListActivity">
+    tools:context="com.diogoaltoe.activity.ProductListActivity">
 
     <ListView
         android:id="@+id/listViewProductList"
