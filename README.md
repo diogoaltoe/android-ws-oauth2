@@ -1,6 +1,6 @@
-# Droid WS
+# Android WS OAuth2
 
-Consuming a RESTful Web Service with Android.
+Android app consuming a RESTful Web Service with OAuth2.
 
 ## Getting Started
 
