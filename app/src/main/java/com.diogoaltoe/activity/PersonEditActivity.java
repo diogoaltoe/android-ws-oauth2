@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diogoaltoe.controller.LoadingController;
 import com.diogoaltoe.R;
@@ -23,9 +24,9 @@ public class PersonEditActivity extends AppCompatActivity {
     private EditText editTextLastName;
 
     // URL to get contacts JSON
-    private String paramId;
     private String paramFirstName;
     private String paramLastName;
+    private String paramHref;
     // Progress Bar
     private LoadingController loading;
     private View viewLoading;
@@ -42,9 +43,9 @@ public class PersonEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            paramId = extras.getString("id");
             paramFirstName = extras.getString("firstName");
             paramLastName = extras.getString("lastName");
+            paramHref = extras.getString("href");
 
             // Update the fields on screen
             editTextFirstName.setText(paramFirstName, TextView.BufferType.EDITABLE);
@@ -59,7 +60,6 @@ public class PersonEditActivity extends AppCompatActivity {
     public void buttonSave(View view) {
 
         Person person = new Person(
-                Integer.parseInt(paramId),
                 editTextFirstName.getText().toString(),
                 editTextLastName.getText().toString()
         );
@@ -96,7 +96,7 @@ public class PersonEditActivity extends AppCompatActivity {
      * */
     public void deleteRecord() {
 
-        new BackgroundDeleteTask(Integer.parseInt(paramId)).execute();
+        new BackgroundDeleteTask().execute();
     }
 
 
@@ -110,7 +110,7 @@ public class PersonEditActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            //TODO: Show a progress spinner
+            // Instance a progress spinner
             loading = new LoadingController();
             // Show a progress spinner
             loading.showProgress(PersonEditActivity.this, viewLoading, true);
@@ -119,13 +119,20 @@ public class PersonEditActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            // Get instance from authenticate User
-            Oauth2Controller oauth2 = Oauth2Controller.getInstance();
-            // Call Web Service of Person List
-            String result = oauth2.callPutService(PersonEditActivity.this, true, "person/", this.params);
-            //System.out.println("String - Person: " + result);
+            try {
+                // Get instance from authenticate User
+                Oauth2Controller oauth2 = Oauth2Controller.getInstance();
+                // Call Web Service of Person List
+                String result = oauth2.callPutService(PersonEditActivity.this, true, paramHref, this.params);
+                //System.out.println("String - Person: " + result);
 
-            return result;
+                return result;
+
+            } catch (Exception e) {
+                //System.out.println("Exception: " + e.getMessage());
+
+                return "Exception";
+            }
         }
 
         @Override
@@ -133,8 +140,8 @@ public class PersonEditActivity extends AppCompatActivity {
             // Hidden a progress spinner
             loading.showProgress(PersonEditActivity.this, viewLoading, false);
 
-            // If returned string is NOT empty
-            if(result != null) {
+            // If returned string is success (204)
+            if(result.equals("204")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PersonEditActivity.this);
                 builder.setMessage(R.string.text_edit_message)
                         .setTitle(R.string.text_success_title)
@@ -146,9 +153,24 @@ public class PersonEditActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            // If returned string is empty
+            // If returned string is NetworkException
+            else if(result == "NetworkException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_network,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is Exception
+            // Or return "401"
             else {
-                //TODO: Show message about empty return
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_service,
+                    Toast.LENGTH_LONG)
+                        .show();
             }
         }
     }
@@ -156,15 +178,9 @@ public class PersonEditActivity extends AppCompatActivity {
 
     class BackgroundDeleteTask extends AsyncTask<Void, Void, String> {
 
-        private final int params;
-
-        public BackgroundDeleteTask(int params) {
-            this.params = params;
-        }
-
         @Override
         protected void onPreExecute() {
-            //TODO: Show a progress spinner
+            // Instance a progress spinner
             loading = new LoadingController();
             // Show a progress spinner
             loading.showProgress(PersonEditActivity.this, viewLoading, true);
@@ -173,13 +189,20 @@ public class PersonEditActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            // Get instance from authenticate User
-            Oauth2Controller oauth2 = Oauth2Controller.getInstance();
-            // Call Web Service of Person List
-            String result = oauth2.callDeleteService(PersonEditActivity.this, false, "person/", Integer.toString(this.params));
-            //System.out.println("String - Person: " + result);
+            try {
+                // Get instance from authenticate User
+                Oauth2Controller oauth2 = Oauth2Controller.getInstance();
+                // Call Web Service of Person List
+                String result = oauth2.callDeleteService(PersonEditActivity.this, true, paramHref);
+                //System.out.println("String - Person: " + result);
 
-            return result;
+                return result;
+
+            } catch (Exception e) {
+                //System.out.println("Exception: " + e.getMessage());
+
+                return "Exception";
+            }
         }
 
         @Override
@@ -187,8 +210,8 @@ public class PersonEditActivity extends AppCompatActivity {
             // Hidden a progress spinner
             loading.showProgress(PersonEditActivity.this, viewLoading, false);
 
-            // If returned string is NOT empty
-            if(result != null) {
+            // If returned string is success (204)
+            if(result.equals("204")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PersonEditActivity.this);
                 builder.setMessage(R.string.text_delete_message)
                         .setTitle(R.string.text_success_title)
@@ -200,9 +223,24 @@ public class PersonEditActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            // If returned string is empty
+            // If returned string is NetworkException
+            else if(result == "NetworkException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_network,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is Exception
+            // Or return "401"
             else {
-                //TODO: Show message about empty return
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_service,
+                    Toast.LENGTH_LONG)
+                        .show();
             }
         }
     }

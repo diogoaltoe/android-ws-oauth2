@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '27.0.3'
+    //buildToolsVersion '24.0.2'
     defaultConfig {
         applicationId "com.diogoaltoe"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -16,45 +16,44 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/spring.tooling'
+        exclude 'META-INF/spring.handlers'
+        exclude 'META-INF/spring-configuration-metadata.json'
+        exclude 'META-INF/spring.factories'
+        exclude 'META-INF/spring.provides'
+        exclude 'META-INF/additional-spring-configuration-metadata.json'
+        exclude 'META-INF/spring.schemas'
     }
 }
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:24+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
-
-    // library to make HTTP requests
-    compile 'com.android.volley:volley:1.0.0'
-    // library to load images from links and display it in the App
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-
-    compile 'com.google.code.gson:gson:2.8.0'
-
-    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
-
-    // Apache Oltu - https://oltu.apache.org/
-    compile ('org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.2') {
-        /*
-         * NOTE: Swagger generated client library depends on "org.apache.oltu.oauth2.client", which
-         * includes classes from "org.apache.oltu.oauth2.common". So, we explicitly need to exclude
-         * common library being added during compilation to avoid "Multiple dex files" error.
-         */
-        exclude module: 'org.apache.oltu.oauth2.common'
+    implementation 'com.android.support:appcompat-v7:24.2.1'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas:1.5.10.RELEASE', {
+        exclude group: 'org.springframework', module: 'spring-web'
+        exclude group: 'org.springframework', module: 'spring-beans'
+        exclude group: 'org.springframework', module: 'spring-core'
     }
 
-    compile (
+    implementation(
             [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.4'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.4']
     )
-
-    compile 'commons-codec:commons-codec:1.8'
+    implementation 'commons-codec:commons-codec:1.8'
 }
 
 repositories {

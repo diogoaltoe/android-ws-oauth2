@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--             Main Activity -->
+        <!--
+            Main Activity
+        -->
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +31,9 @@
             </intent-filter>
         </activity>
 
-        <!--             User New Activity -->
+        <!--
+            User New Activity
+        -->
         <activity
             android:name=".activity.UserNewActivity"
             android:label="@string/title_activity_user_new"
@@ -41,7 +45,9 @@
                 android:value="com.diogoaltoe.activity.MainActivity" />
         </activity>
 
-        <!--             User Login Activity -->
+        <!--
+            User Login Activity
+        -->
         <activity
             android:name=".activity.UserLoginActivity"
             android:label="@string/title_activity_user_login"
@@ -53,12 +59,16 @@
                 android:value="com.diogoaltoe.activity.MainActivity" />
         </activity>
 
-        <!--             User Home Activity -->
+        <!--
+            User Home Activity
+        -->
         <activity
             android:name=".activity.UserHomeActivity"
             android:label="@string/title_activity_user_home"></activity>
 
-        <!--             User Main Activity -->
+        <!--
+            User Main Activity
+        -->
         <activity
             android:name=".activity.UserMainActivity"
             android:label="@string/title_activity_user"
@@ -70,7 +80,9 @@
                 android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--             User List Activity -->
+        <!--
+            User List Activity
+        -->
         <activity
             android:name=".activity.UserListActivity"
             android:label="@string/title_activity_user_list"
@@ -82,7 +94,9 @@
                 android:value="com.diogoaltoe.activity.UserMainActivity" />
         </activity>
 
-        <!--             User Edit Activity -->
+        <!--
+            User Edit Activity
+        -->
         <activity
             android:name=".activity.UserEditActivity"
             android:label="@string/title_activity_user_edit"
@@ -94,7 +108,9 @@
                 android:value="com.diogoaltoe.activity.UserListActivity" />
         </activity>
 
-        <!--             Product Main Activity -->
+        <!--
+            Product Main Activity
+        -->
         <activity
             android:name=".activity.ProductMainActivity"
             android:label="@string/title_activity_product"
@@ -106,7 +122,9 @@
                 android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--             Product New Activity -->
+        <!--
+            Product New Activity
+        -->
         <activity
             android:name=".activity.ProductNewActivity"
             android:label="@string/title_activity_product_new"
@@ -118,7 +136,9 @@
                 android:value="com.diogoaltoe.activity.ProductMainActivity" />
         </activity>
 
-        <!--             Product List Activity -->
+        <!--
+            Product List Activity
+        -->
         <activity
             android:name=".activity.ProductListActivity"
             android:label="@string/title_activity_product_list"
@@ -130,7 +150,9 @@
                 android:value="com.diogoaltoe.activity.ProductMainActivity" />
         </activity>
 
-        <!--             Product Edit Activity -->
+        <!--
+            Product Edit Activity
+        -->
         <activity
             android:name=".activity.ProductEditActivity"
             android:label="@string/title_activity_product_edit"
@@ -142,7 +164,9 @@
                 android:value="com.diogoaltoe.activity.ProductListActivity" />
         </activity>
 
-        <!--             Person Main Activity -->
+        <!--
+            Person Main Activity
+        -->
         <activity
             android:name=".activity.PersonMainActivity"
             android:label="@string/title_activity_person"
@@ -154,7 +178,9 @@
                 android:value="com.diogoaltoe.activity.UserHomeActivity" />
         </activity>
 
-        <!--             Person New Activity -->
+        <!--
+            Person New Activity
+        -->
         <activity
             android:name=".activity.PersonNewActivity"
             android:label="@string/title_activity_person_new"
@@ -166,7 +192,9 @@
                 android:value="com.diogoaltoe.activity.PersonMainActivity" />
         </activity>
 
-        <!--             Person List Activity -->
+        <!--
+            Person List Activity
+        -->
         <activity
             android:name=".activity.PersonListActivity"
             android:label="@string/title_activity_person_list"
@@ -178,7 +206,9 @@
                 android:value="com.diogoaltoe.activity.PersonMainActivity" />
         </activity>
 
-        <!--             Person Edit Activity -->
+        <!--
+            Person Edit Activity
+        -->
         <activity
             android:name=".activity.PersonEditActivity"
             android:label="@string/title_activity_person_edit"

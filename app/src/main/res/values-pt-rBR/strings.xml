@@ -3,7 +3,15 @@
     <!--
         App Name
     -->
-    <string name="app_name">Droid WS</string>
+    <string name="app_name">Android WS OAuth2</string>
+
+    <!--
+        Default Exception
+    -->
+    <string name="exception_service">Erro ao chamar o serviço!</string>
+    <string name="exception_network">Sem acesso a Internet. Por favor, verifique sua conexão!</string>
+    <string name="exception_json">O retorno em Json não possui um formato válido!</string>
+    <string name="exception_empty">Não existem registros a serem exibidos!</string>
 
     <!--
         Default Buttons
@@ -29,15 +37,12 @@
     <string name="text_delete_confirmation">Tem certeza que deseja excluir esse registro?</string>
 
     <!--
-        Default Network Message
-    -->
-    <string name="app_network_offline">Por favor, verifique sua conexão com a Internet</string>
-
-    <!--
         Main
     -->
-    <string name="text_home">Olá! Crie a sua conta ou acesse nosso sistema.</string>
+    <string name="text_home">Olá!</string>
+    <string name="text_home_user_new">Se você é novo por aqui, crie agora mesmo a sua conta:</string>
     <string name="button_user_new">Criar Conta</string>
+    <string name="text_home_login">Caso já possua uma conta, acesse então o nosso sistema:</string>
     <string name="button_login">Entrar</string>
 
     <!--

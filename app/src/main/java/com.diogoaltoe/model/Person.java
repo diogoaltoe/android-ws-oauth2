@@ -5,6 +5,7 @@ public class Person {
     private int id;
     private String firstName;
     private String lastName;
+    private String href;
 
     public Person() { }
 
@@ -41,5 +42,13 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 }

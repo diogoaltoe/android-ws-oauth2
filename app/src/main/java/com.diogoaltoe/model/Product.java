@@ -6,6 +6,7 @@ public class Product {
     private String name;
     private String description;
     private Double cost;
+    private String href;
 
     public Product() { }
 
@@ -59,5 +60,13 @@ public class Product {
                 + ", Name: " + getName()
                 + ", Description: " + getDescription()
                 + ", Cost: " + getCost();
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 }

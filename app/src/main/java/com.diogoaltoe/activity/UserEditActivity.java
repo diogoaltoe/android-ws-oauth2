@@ -10,11 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diogoaltoe.R;
 import com.diogoaltoe.controller.LoadingController;
 import com.diogoaltoe.controller.Oauth2Controller;
-import com.diogoaltoe.model.User;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class UserEditActivity extends AppCompatActivity {
@@ -25,6 +30,7 @@ public class UserEditActivity extends AppCompatActivity {
     // URL to get contacts JSON
     private String paramName;
     private String paramEmail;
+    private String paramHref;
     // Progress Bar
     private LoadingController loading;
     private View viewLoading;
@@ -43,6 +49,7 @@ public class UserEditActivity extends AppCompatActivity {
         if (extras != null) {
             paramName = extras.getString("name");
             paramEmail = extras.getString("email");
+            paramHref = extras.getString("href");
 
             // Update the fields on screen
             editTextName.setText(paramName, TextView.BufferType.EDITABLE);
@@ -56,12 +63,14 @@ public class UserEditActivity extends AppCompatActivity {
      * */
     public void buttonSave(View view) {
 
-        User user = new User(
-                editTextName.getText().toString(),
-                editTextEmail.getText().toString()
-        );
+        Map<String, String> params = new HashMap();
+        params.put("name", editTextName.getText().toString());
+        params.put("email", editTextEmail.getText().toString());
 
-        new BackgroundEditTask(user).execute();
+        JSONObject jsonParams = new JSONObject(params);
+        String stringParams = jsonParams.toString();
+
+        new BackgroundEditTask(stringParams).execute();
     }
 
     /**
@@ -93,21 +102,21 @@ public class UserEditActivity extends AppCompatActivity {
      * */
     public void deleteRecord() {
 
-        new BackgroundDeleteTask(paramEmail).execute();
+        new BackgroundDeleteTask().execute();
     }
 
 
     class BackgroundEditTask extends AsyncTask<Void, Void, String> {
 
-        private final User params;
+        private final String params;
 
-        public BackgroundEditTask(User params) {
+        public BackgroundEditTask(String params) {
             this.params = params;
         }
 
         @Override
         protected void onPreExecute() {
-            //TODO: Show a progress spinner
+            // Instance a progress spinner
             loading = new LoadingController();
             // Show a progress spinner
             loading.showProgress(UserEditActivity.this, viewLoading, true);
@@ -116,13 +125,20 @@ public class UserEditActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            // Get instance from authenticate User
-            Oauth2Controller oauth2 = Oauth2Controller.getInstance();
-            // Call Web Service of User List
-            String result = oauth2.callPutService(UserEditActivity.this, true, "user/", this.params);
-            //System.out.println("String - User: " + result);
+            try {
+                // Get instance from authenticate User
+                Oauth2Controller oauth2 = Oauth2Controller.getInstance();
+                // Call Web Service of User List
+                String result = oauth2.callPatchService(UserEditActivity.this, true, paramHref, this.params);
+                //System.out.println("String - User: " + result);
 
-            return result;
+                return result;
+
+            } catch (Exception e) {
+                //System.out.println("Exception: " + e.getMessage());
+
+                return "Exception";
+            }
         }
 
         @Override
@@ -130,8 +146,8 @@ public class UserEditActivity extends AppCompatActivity {
             // Hidden a progress spinner
             loading.showProgress(UserEditActivity.this, viewLoading, false);
 
-            // If returned string is NOT empty
-            if(result != null) {
+            // If returned string is success (204)
+            if(result.equals("204")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserEditActivity.this);
                 builder.setMessage(R.string.text_edit_message)
                         .setTitle(R.string.text_success_title)
@@ -143,9 +159,24 @@ public class UserEditActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            // If returned string is empty
+            // If returned string is NetworkException
+            else if(result == "NetworkException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_network,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is Exception
+            // Or return "401"
             else {
-                //TODO: Show message about empty return
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_service,
+                    Toast.LENGTH_LONG)
+                        .show();
             }
         }
     }
@@ -153,15 +184,9 @@ public class UserEditActivity extends AppCompatActivity {
 
     class BackgroundDeleteTask extends AsyncTask<Void, Void, String> {
 
-        private final String params;
-
-        public BackgroundDeleteTask(String params) {
-            this.params = params;
-        }
-
         @Override
         protected void onPreExecute() {
-            //TODO: Show a progress spinner
+            // Instance a progress spinner
             loading = new LoadingController();
             // Show a progress spinner
             loading.showProgress(UserEditActivity.this, viewLoading, true);
@@ -170,13 +195,20 @@ public class UserEditActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            // Get instance from authenticate User
-            Oauth2Controller oauth2 = Oauth2Controller.getInstance();
-            // Call Web Service of User List
-            String result = oauth2.callDeleteService(UserEditActivity.this, true, "user/", this.params);
-            //System.out.println("String - User: " + result);
+            try {
+                // Get instance from authenticate User
+                Oauth2Controller oauth2 = Oauth2Controller.getInstance();
+                // Call Web Service of User List
+                String result = oauth2.callDeleteService(UserEditActivity.this, true, paramHref);
+                //System.out.println("String - User: " + result);
 
-            return result;
+                return result;
+
+            } catch (Exception e) {
+                //System.out.println("Exception: " + e.getMessage());
+
+                return "Exception";
+            }
         }
 
         @Override
@@ -184,8 +216,8 @@ public class UserEditActivity extends AppCompatActivity {
             // Hidden a progress spinner
             loading.showProgress(UserEditActivity.this, viewLoading, false);
 
-            // If returned string is NOT empty
-            if(result != null) {
+            // If returned string is success (204)
+            if(result.equals("204")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserEditActivity.this);
                 builder.setMessage(R.string.text_delete_message)
                         .setTitle(R.string.text_success_title)
@@ -197,9 +229,24 @@ public class UserEditActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            // If returned string is empty
+            // If returned string is NetworkException
+            else if(result == "NetworkException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_network,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is Exception
+            // Or return "401"
             else {
-                //TODO: Show message about empty return
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_service,
+                    Toast.LENGTH_LONG)
+                        .show();
             }
         }
     }

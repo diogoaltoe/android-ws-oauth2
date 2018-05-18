@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -302,10 +303,10 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
             oauth2.setUsername(email);
             oauth2.setPassword(password);
             // Try to authenticate
-            String stringResponse = oauth2.getTokenOauth2();
+            String result = oauth2.getTokenOauth2(UserLoginActivity.this);
             //System.out.println("JSON - OAuth: " + jsonResponse);
 
-            return stringResponse;
+            return result;
         }
 
         @Override
@@ -313,15 +314,44 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
             // Hidden a progress spinner
             showProgress(false);
 
-            // If user was authenticate
-            if(result != null) {
+            // If returned string is success (Authorized)
+            if(result == "Authorized") {
                 //System.out.println("AccessToken: " + oauth2.getAccessToken());
                 //System.out.println("RefreshToken: " + oauth2.getRefreshToken());
 
                 Intent intent = new Intent(UserLoginActivity.this, UserHomeActivity.class);
                 startActivity(intent);
             }
+            // If returned string is NetworkException
+            else if(result == "NetworkException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_network,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is NetworkException
+            else if(result == "JSONException") {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_json,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
+            // If returned string is Exception
+            // Or return "401"
+            else if((result == "Exception") || (result.equals("401"))) {
+                //TODO: Show message about exception return
+                Toast.makeText(
+                    getApplicationContext(),
+                    R.string.exception_service,
+                    Toast.LENGTH_LONG)
+                        .show();
+            }
             // If user was NOT authenticate
+            // Return "400"
             else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

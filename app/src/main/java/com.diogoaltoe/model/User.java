@@ -8,12 +8,12 @@ public class User {
     private boolean activated;
     private String activationKey;
     private String resetPasswordKey;
+    private String href;
 
     public User() { }
 
     public User(String name, String email) {
         this.name = name;
-        this.username = email;
         this.email = email;
     }
 
@@ -78,5 +78,13 @@ public class User {
 
     public void setResetPasswordKey(String resetPasswordKey) {
         this.resetPasswordKey = resetPasswordKey;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 }
