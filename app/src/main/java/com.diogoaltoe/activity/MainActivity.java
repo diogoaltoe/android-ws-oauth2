@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
      * */
     public void buttonUserNew(View view) {
         Intent intent = new Intent(this, UserNewActivity.class);
+        intent.putExtra("visitor", "y");
         startActivity(intent);
     }
 

@@ -50,6 +50,7 @@
     -->
     <string name="title_activity_user_new">Criar Usuário</string>
     <string name="text_user_name">Nome</string>
+    <string name="error_invalid_name">O nome é muito curto</string>
     <string name="text_user_email">E-mail</string>
     <string name="text_user_password">Senha</string>
     <string name="text_user_password_repeat">Repita sua senha</string>
@@ -60,7 +61,7 @@
     <string name="title_activity_user_login">Login</string>
     <string name="error_invalid_email">O e-mail é inválido</string>
     <string name="error_invalid_password">A senha é muito curta</string>
-    <string name="error_incorrect_password">A senha é incorreta</string>
+    <string name="error_incorrect_password">As senhas são diferentes</string>
     <string name="error_field_required">O campo é obrigatório</string>
     <string name="permission_rationale">"Você receberá um e-mail para confirmar seu cadastro."</string>
 
@@ -68,7 +69,7 @@
         User Home
     -->
     <string name="title_activity_user_home">Início</string>
-    <string name="text_user_welcome">Bem vindo!</string>
+    <string name="text_user_welcome">Bem vindo %s!</string>
     <string name="button_activity_user">Usuário</string>
     <string name="button_activity_product">Produto</string>
     <string name="button_activity_person">Pessoa</string>

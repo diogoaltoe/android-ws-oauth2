@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -35,10 +36,15 @@ public class Oauth2Controller extends Application {
     // Client secret of your client credential
     private static final String CLIENT_SECRET = "secret";
 
+    // USER's INFO
+
+    // Name account
+    private String name;
     // Username account
     private String username;
     // Password account
     private String password;
+
     // Type of grant for an access token
     private static final String GRANT_TYPE = "password";
 
@@ -52,8 +58,6 @@ public class Oauth2Controller extends Application {
     private String accessToken;
     private String refreshToken;
 
-    private JSONObject embedded;
-
     public static Oauth2Controller getInstance() {
         if (instance == null)
             instance = new Oauth2Controller();
@@ -63,6 +67,14 @@ public class Oauth2Controller extends Application {
     public static void destroyInstance() {
         if (instance != null)
             instance = null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -97,14 +109,6 @@ public class Oauth2Controller extends Application {
         this.refreshToken = refreshToken;
     }
 
-    public JSONObject getEmbedded() {
-        return embedded;
-    }
-
-    public void setEmbedded(JSONObject embedded) {
-        this.embedded = embedded;
-    }
-
     public String getTokenOauth2(Context context) {
 
         NetworkController network = new NetworkController();
@@ -127,8 +131,8 @@ public class Oauth2Controller extends Application {
                 UriComponentsBuilder url = UriComponentsBuilder
                         .fromUriString(URL_PROJECT + URL_OAUTH2)
                         // Add query parameter
-                        .queryParam("username", username)
-                        .queryParam("password", password)
+                        .queryParam("username", this.getUsername())
+                        .queryParam("password", this.getPassword())
                         .queryParam("grant_type", GRANT_TYPE);
 
                 RestTemplate restTemplate = new RestTemplate();
@@ -155,8 +159,21 @@ public class Oauth2Controller extends Application {
                 String jsonAccessToken = jsonResponse.getString("access_token");
                 String jsonRefreshToken = jsonResponse.getString("refresh_token");
 
-                setAccessToken(jsonAccessToken);
-                setRefreshToken(jsonRefreshToken);
+                this.setAccessToken(jsonAccessToken);
+                this.setRefreshToken(jsonRefreshToken);
+
+                // Call service to get the User's info
+                Object response = this.callGetService(context, true, "user/"+ username);
+
+                // Map the response into a String
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String resultUserInfo = ow.writeValueAsString(response);
+
+                // Convert the result String into a Json
+                JSONObject jsonResult = new JSONObject(resultUserInfo);
+                // Set the Name of User with value from "name" field
+                this.setName(jsonResult.getString("name"));
+
 
                 return "Authorized";
 
@@ -173,6 +190,11 @@ public class Oauth2Controller extends Application {
                 // System.out.println("JSONException - getTokenOauth2: " + e.toString());
 
                 return "JSONException";
+
+            } catch (Exception e) {
+                //System.out.println("Exception: " + e.getMessage());
+
+                return "Exception";
             }
         }
     }

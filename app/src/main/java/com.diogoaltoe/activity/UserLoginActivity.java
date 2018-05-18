@@ -36,6 +36,7 @@ import java.util.List;
 
 import com.diogoaltoe.R;
 import com.diogoaltoe.controller.Oauth2Controller;
+import com.diogoaltoe.controller.ValidateController;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -147,6 +148,7 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
 
         boolean cancel = false;
         View focusView = null;
+        ValidateController validate = new ValidateController();
 
         // Check for a valid password.
         if (TextUtils.isEmpty(password)) {
@@ -155,7 +157,7 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
             cancel = true;
         }
         // Check for a valid password, if the user entered one.
-        else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        else if (!validate.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -166,7 +168,7 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!validate.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -180,16 +182,6 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
 
             new BackgroundTask(email, password).execute();
         }
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 2;
     }
 
     /**
@@ -320,6 +312,9 @@ public class UserLoginActivity extends AppCompatActivity implements LoaderCallba
                 //System.out.println("RefreshToken: " + oauth2.getRefreshToken());
 
                 Intent intent = new Intent(UserLoginActivity.this, UserHomeActivity.class);
+                // Reset the Activity's historic
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
             // If returned string is NetworkException

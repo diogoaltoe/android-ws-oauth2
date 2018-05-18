@@ -50,6 +50,7 @@
     -->
     <string name="title_activity_user_new">Create User</string>
     <string name="text_user_name">Name</string>
+    <string name="error_invalid_name">The name is too short</string>
     <string name="text_user_email">Email</string>
     <string name="text_user_password">Password</string>
     <string name="text_user_password_repeat">Repeat your password</string>
@@ -60,7 +61,7 @@
     <string name="title_activity_user_login">Login</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_password">The passwords are different</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"You will receive an email to confirm your registration."</string>
 
@@ -68,7 +69,7 @@
         User Home
     -->
     <string name="title_activity_user_home">Home</string>
-    <string name="text_user_welcome">Welcome!</string>
+    <string name="text_user_welcome">Welcome %s!</string>
     <string name="button_activity_user">User</string>
     <string name="button_activity_product">Product</string>
     <string name="button_activity_person">Person</string>

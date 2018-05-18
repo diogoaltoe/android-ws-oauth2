@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.diogoaltoe.R;
+import com.diogoaltoe.controller.Oauth2Controller;
 
 
 public class UserMainActivity extends AppCompatActivity {
@@ -13,7 +15,6 @@ public class UserMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // link the XML layout to this JAVA class
         setContentView(R.layout.activity_user_main);
     }
 

@@ -15,7 +15,7 @@
     <application
         android:name=".controller.Oauth2Controller"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_client"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

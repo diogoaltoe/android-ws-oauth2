@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.EditText;
@@ -15,7 +17,10 @@ import android.widget.Toast;
 import com.diogoaltoe.R;
 import com.diogoaltoe.controller.LoadingController;
 import com.diogoaltoe.controller.Oauth2Controller;
+import com.diogoaltoe.controller.ValidateController;
 import com.diogoaltoe.model.User;
+
+import java.util.regex.Pattern;
 
 public class UserNewActivity extends AppCompatActivity {
 
@@ -28,6 +33,8 @@ public class UserNewActivity extends AppCompatActivity {
     private LoadingController loading;
     private View viewLoading;
 
+    private String visitor = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,13 @@ public class UserNewActivity extends AppCompatActivity {
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPasswordRepeat = (EditText) findViewById(R.id.editTextPasswordRepeat);
         viewLoading = findViewById(R.id.progressBarLoading);
+
+        // Get params pass from another activity
+        Bundle extras = getIntent().getExtras();
+        // Verify if exists params
+        if (extras != null) {
+            visitor = extras.getString("visitor");
+        }
     }
 
     /**
@@ -46,13 +60,93 @@ public class UserNewActivity extends AppCompatActivity {
      * */
     public void buttonSave(View view) {
 
-        User user = new User(
-                editTextName.getText().toString(),
-                editTextEmail.getText().toString(),
-                editTextPassword.getText().toString()
-        );
+        // Reset errors.
+        editTextName.setError(null);
+        editTextEmail.setError(null);
+        editTextPassword.setError(null);
+        editTextPasswordRepeat.setError(null);
 
-        new BackgroundTask(user).execute();
+        // Store values at the time of the new user attempt.
+        final String name = editTextName.getText().toString();
+        final String email = editTextEmail.getText().toString();
+        final String password = editTextPassword.getText().toString();
+        final String passwordRepeat = editTextPasswordRepeat.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+        ValidateController validate = new ValidateController();
+
+        // Check for a valid passwordRepeat.
+        if (TextUtils.isEmpty(passwordRepeat)) {
+            editTextPasswordRepeat.setError(getString(R.string.error_field_required));
+            focusView = editTextPasswordRepeat;
+            cancel = true;
+        }
+        // Check for a valid passwordRepeat, if the user entered one.
+        else if (!validate.isPasswordValid(passwordRepeat)) {
+            editTextPasswordRepeat.setError(getString(R.string.error_invalid_password));
+            focusView = editTextPasswordRepeat;
+            cancel = true;
+        }
+        // Check if the password and the password repeated are different
+        else if( password != passwordRepeat) {
+            editTextPasswordRepeat.setError(getString(R.string.error_incorrect_password));
+            focusView = editTextPasswordRepeat;
+            cancel = true;
+        }
+
+        // Check for a valid password.
+        if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError(getString(R.string.error_field_required));
+            focusView = editTextPassword;
+            cancel = true;
+        }
+        // Check for a valid password, if the user entered one.
+        else if (!validate.isPasswordValid(password)) {
+            editTextPassword.setError(getString(R.string.error_invalid_password));
+            focusView = editTextPassword;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            editTextEmail.setError(getString(R.string.error_field_required));
+            focusView = editTextEmail;
+            cancel = true;
+        } else if (!validate.isEmailValid(email)) {
+            editTextEmail.setError(getString(R.string.error_invalid_email));
+            focusView = editTextEmail;
+            cancel = true;
+        }
+
+        // Check for a valid name.
+        if (TextUtils.isEmpty(name)) {
+            editTextName.setError(getString(R.string.error_field_required));
+            focusView = editTextName;
+            cancel = true;
+        }
+        // Check for a valid name, if the user entered one.
+        else if (!validate.isNameValid(name)) {
+            editTextName.setError(getString(R.string.error_invalid_name));
+            focusView = editTextName;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+
+            User user = new User(
+                    editTextName.getText().toString(),
+                    editTextEmail.getText().toString(),
+                    editTextPassword.getText().toString()
+            );
+
+            new BackgroundTask(user).execute();
+        }
+
     }
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -78,7 +172,7 @@ public class UserNewActivity extends AppCompatActivity {
                 // Get instance from authenticate User
                 Oauth2Controller oauth2 = Oauth2Controller.getInstance();
                 // Call Web Service of User List
-                String result = oauth2.callPostService(UserNewActivity.this, true,"user/", this.params);
+                String result = oauth2.callPostService(UserNewActivity.this, false,"user/", this.params);
                 //System.out.println("String - User: " + stringResponse);
 
                 return result;
@@ -103,7 +197,15 @@ public class UserNewActivity extends AppCompatActivity {
                             .setTitle(R.string.text_success_title)
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    startActivity(new Intent(((Dialog)dialog).getContext(), UserMainActivity.class));
+                                    // Verify if the previous screen was Main ou User Activity
+                                    // If was User Activity
+                                    if( visitor == null ) {
+                                        startActivity(new Intent(((Dialog) dialog).getContext(), UserMainActivity.class));
+                                    }
+                                    // If was Main Activity
+                                    else {
+                                        startActivity(new Intent(((Dialog) dialog).getContext(), MainActivity.class));
+                                    }
                                 }
                             });
                     AlertDialog dialog = builder.create();

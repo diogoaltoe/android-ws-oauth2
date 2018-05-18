@@ -44,8 +44,9 @@ public class UserEditActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         viewLoading = findViewById(R.id.progressBarLoading);
 
+        // Get params pass from another activity
         Bundle extras = getIntent().getExtras();
-
+        // Verify if exists params
         if (extras != null) {
             paramName = extras.getString("name");
             paramEmail = extras.getString("email");
