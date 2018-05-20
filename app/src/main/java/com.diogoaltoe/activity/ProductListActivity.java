@@ -68,7 +68,7 @@ public class ProductListActivity extends AppCompatActivity {
                 // Get instance from authenticate User
                 Oauth2Controller oauth2 = Oauth2Controller.getInstance();
                 // Call Web Service of Product List
-                Object response = oauth2.callGetService(ProductListActivity.this, true, "product/");
+                Object response = oauth2.callGetService(ProductListActivity.this, true, "product/?sort=name&name.dir=asc");
                 //System.out.println("String - Product: " + stringResponse);
 
                 // Map the response into a String

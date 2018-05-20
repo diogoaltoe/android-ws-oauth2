@@ -69,7 +69,7 @@ public class UserListActivity extends AppCompatActivity {
                 // Get instance from authenticate User
                 Oauth2Controller oauth2 = Oauth2Controller.getInstance();
                 // Call Web Service of User List
-                Object response = oauth2.callGetService(UserListActivity.this, true, "user/");
+                Object response = oauth2.callGetService(UserListActivity.this, true, "user/?sort=name&name.dir=asc");
                 //System.out.println("String - User: " + stringResponse);
 
                 // Map the response into a String
