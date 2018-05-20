@@ -42,7 +42,7 @@ This are some of the App's screens:
 
 ### Visitor Home
 
-![Visitor Home](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/01-visitor-home.png)
+![Visitor Home](screenshot/01-visitor-home.png)
 
 ### Create Account
 
