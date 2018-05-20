@@ -42,7 +42,7 @@ This are some of the App's screens:
 
 ### Visitor Home
 
-![Visitor Home](screenshot/01-visitor-home.png)
+![Visitor Home](screenshot/01-visitor-home.jpg)
 
 ### Create Account
 
