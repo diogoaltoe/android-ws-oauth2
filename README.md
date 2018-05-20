@@ -46,31 +46,31 @@ This are some of the App's screens:
 
 ### Create Account
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/02-create-account.jpg)
+![Create Account](screenshot/02-create-account.jpg)
 
 ### Sign In
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/03-sign-in.jpg)
+![Sign In](screenshot/03-sign-in.jpg)
 
 ### User Home
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/04-user-home.jpg)
+![User Home](screenshot/04-user-home.jpg)
 
 ### Product Main
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/05-product-main.jpg)
+![Product Main](screenshot/05-product-main.jpg)
 
 ### New Product
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/06-new-product.jpg)
+![New Product](screenshot/06-new-product.jpg)
 
 ### List Product
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/07-list-product.jpg)
+![List Product](screenshot/07-list-product.jpg)
 
 ### Edit Product
 
-![alt text](https://github.com/diogoaltoe/android-ws-oauth2/tree/master/screenshot/08-edit-product.jpg)
+![Edit Product](screenshot/08-edit-product.jpg)
 
 
 ## Built With
