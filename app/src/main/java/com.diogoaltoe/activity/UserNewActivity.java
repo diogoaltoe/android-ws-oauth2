@@ -89,7 +89,7 @@ public class UserNewActivity extends AppCompatActivity {
             cancel = true;
         }
         // Check if the password and the password repeated are different
-        else if( password != passwordRepeat) {
+        else if( !password.equals(passwordRepeat)) {
             editTextPasswordRepeat.setError(getString(R.string.error_incorrect_password));
             focusView = editTextPasswordRepeat;
             cancel = true;

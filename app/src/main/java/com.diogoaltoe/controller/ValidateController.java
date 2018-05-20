@@ -18,7 +18,7 @@ public class ValidateController {
     }
 
     public boolean isPasswordValid(String password) {
-        return password.length() > 6;
+        return password.length() > 7;
     }
 
 }
