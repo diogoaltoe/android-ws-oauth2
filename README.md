@@ -24,7 +24,7 @@ Download the project by clicking the "Clone or download" button.
 Unzip the project into the directory of your choice.
 ```
 ```
-Using Android Studio (or another publisher), open the project you saved in the directory of your choice.
+Using Android Studio (or another IDE), open the project you saved in the directory of your choice.
 ```
 ```
 Click the Run (Shift + F10) button to run the project.
