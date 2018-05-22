@@ -31,9 +31,15 @@ Click the Run (Shift + F10) button to run the project.
 
 ```
 
+
 ## Deployment
 
 Another project, [spring-boot-ws-oauth2](https://github.com/diogoaltoe/spring-boot-ws-oauth2), will be the server that publish the services consumed in this project.
+
+
+## Testing
+
+You can download the APK file, on this [link](https://github.com/diogoaltoe/android-ws-oauth2/blob/master/apk/android-ws-oauth2.apk), to install on Android to test the project.
 
 
 ## Screenshot
