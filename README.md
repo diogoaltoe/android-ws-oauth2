@@ -39,7 +39,7 @@ Another project, [spring-boot-ws-oauth2](https://github.com/diogoaltoe/spring-bo
 
 ## Testing
 
-You can download the APK file, on this [link](https://github.com/diogoaltoe/android-ws-oauth2/blob/master/apk/android-ws-oauth2.apk), to install on Android to test the project.
+You can download the APK file, on this [link](https://github.com/diogoaltoe/android-ws-oauth2/blob/master/apk/), to install on Android to test the project.
 
 
 ## Screenshot
