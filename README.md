@@ -98,4 +98,4 @@ We use [Git](https://git-scm.com/) for versioning.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE.md).
