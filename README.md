@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 - Android Studio or other.
--- Spring Boot server with RESTful Web Service and OAuth2: [spring-boot-ws-oauth2](https://github.com/diogoaltoe/spring-boot-ws-oauth2)
+- Spring Boot server with RESTful Web Service and OAuth2: [spring-boot-ws-oauth2](https://github.com/diogoaltoe/spring-boot-ws-oauth2)
 
 ### Installing
 
